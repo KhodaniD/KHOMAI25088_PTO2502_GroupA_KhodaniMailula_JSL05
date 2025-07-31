@@ -178,4 +178,46 @@ export function createModalElements() {
     modalBackdrop.appendChild(modal);
 
     setupModalEventListeners(); 
+
 }
+/**
+ * Sets up event listeners for the modal's primary (save/create) and delete buttons.
+ * This function should be called after modal elements are created.
+ * @returns {void}
+ */
+function setupModalEventListeners() {
+    /**
+     * Event listener for the primary action button (Create Task / Save Changes).
+     * Performs validation and calls appropriate task management functions.
+     * @returns {void}
+     */
+    primaryButton.addEventListener('click', () => {
+        console.log('[Primary Button Click] Fired.');
+
+        // On submit, explicitly validate. If empty, show message and return.
+        if (titleInput.value.trim() === '') {
+            updateTitleValidation(false); // Force show validation message
+            titleInput.focus();
+            return; // Stop execution
+        }
+
+        // If validation passes
+        updateTitleValidation(true); // Ensure validation message is hidden before proceeding
+
+        const title = titleInput.value.trim();
+        const description = descriptionTextarea.value.trim();
+        const status = statusSelect.value;
+
+        if (currentTaskId) {
+            updateTaskState(currentTaskId, title, description, status);
+            console.log('[Primary Button Click] Task updated:', currentTaskId);
+        } else {
+            addNewTask(title, description, status);
+            console.log('[Primary Button Click] New task added.');
+        }
+
+        modalBackdrop.style.display = 'none'; // Hide modal
+        updateTitleValidation(true); // Final cleanup on modal close
+    });
+
+
