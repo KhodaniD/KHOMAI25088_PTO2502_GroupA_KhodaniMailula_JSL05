@@ -54,4 +54,62 @@ function updateTitleValidation(isValid) {
     }
 }
 
+/**
+ * Creates and appends the necessary modal DOM elements to the document body.
+ * This function should be called only once (from main.js) to set up the basic modal structure.
+ * Subsequent calls to `openTaskModal` will reuse and update these elements.
+ * @returns {void}
+ */
+export function createModalElements() {
+    modalBackdrop = document.createElement('div');
+    modalBackdrop.className = 'modal-backdrop';
+    modalBackdrop.id = 'taskModalBackdrop';
+    modalBackdrop.style.display = 'none';
 
+    modal = document.createElement('div');
+    modal.className = 'modal';
+
+    closeButton = document.createElement('button');
+    closeButton.className = 'close-button';
+    closeButton.innerHTML = '&times;';
+    closeButton.addEventListener('click', () => {
+        modalBackdrop.style.display = 'none';
+        updateTitleValidation(true); // Reset validation state when closing with 'x'
+    });
+
+    modalTitle = document.createElement('h2');
+    modalTitle.textContent = 'Task Details';
+
+    const modalContent = document.createElement('div');
+    modalContent.className = 'modal-content';
+
+    titleFieldGroup = document.createElement('div');
+    titleFieldGroup.className = 'form-group';
+
+    titleLabel = document.createElement('label');
+    titleLabel.textContent = 'Title';
+    titleLabel.setAttribute('for', 'modalTaskTitle');
+
+    titleInput = document.createElement('input');
+    titleInput.type = 'text';
+    titleInput.id = 'modalTaskTitle';
+    titleInput.placeholder = 'e.g. Take chilled break';
+
+    titleValidationMessageSpan = document.createElement('span');
+    titleValidationMessageSpan.className = 'validation-message';
+
+    const exclamationSpan = document.createElement('span');
+    exclamationSpan.className = 'exclamation-mark';
+    exclamationSpan.textContent = '!';
+
+    const messageTextSpan = document.createElement('span');
+    messageTextSpan.textContent = ' Please fill out this field.';
+
+    titleValidationMessageSpan.appendChild(exclamationSpan);
+    titleValidationMessageSpan.appendChild(messageTextSpan);
+
+    titleFieldGroup.appendChild(titleLabel);
+    titleFieldGroup.appendChild(titleInput);
+    titleFieldGroup.appendChild(titleValidationMessageSpan);
+
+}
