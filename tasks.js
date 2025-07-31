@@ -175,5 +175,34 @@ export function addNewTask(title, description, status) {
     description,
     status,
   };
+  currentTasksState = [...currentTasksState, newTask]; // Add new task to the state
+  saveTasksToStorage(currentTasksState);               // Persist updated state
+  renderTasks();                                       // Re-render tasks on the board
 }
+
+/**
+ * Updates an existing task in the `currentTasksState` array, updates storage, and re-renders tasks.
+ * @param {number} id - The ID of the task to update.
+ * @param {string} newTitle - The new title for the task.
+ * @param {string} newDescription - The new description for the task.
+ * @param {string} newStatus - The new status for the task ('todo', 'doing', 'done').
+ * @returns {void}
+ */
+export function updateTaskState(id, newTitle, newDescription, newStatus) {
+  currentTasksState = currentTasksState.map(task => {
+    if (task.id === id) {
+      return {
+        ...task, // Copy existing properties
+        title: newTitle,
+        description: newDescription,
+        status: newStatus,
+      };
+    }
+    return task; // Return unchanged task if ID doesn't match
+  });
+  saveTasksToStorage(currentTasksState); // Persist updated state
+  renderTasks();                          // Re-render tasks on the board
+}
+
+
 
