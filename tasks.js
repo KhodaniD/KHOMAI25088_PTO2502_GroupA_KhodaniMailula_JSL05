@@ -134,3 +134,15 @@ function updateTaskCountDisplays() {
     }
   });
 }
+
+/**
+ * Renders all tasks from the global `currentTasksState` array into their respective Kanban board columns.
+ * Clears existing tasks before rendering to prevent duplicates and then updates task counts.
+ * @returns {void}
+ */
+export function renderTasks() {
+  // Clear all existing tasks from containers to prevent duplicates on re-render
+  document.querySelectorAll('.tasks-container').forEach(container => {
+    container.innerHTML = '';
+  });
+
