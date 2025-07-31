@@ -275,4 +275,17 @@ export function openTaskModal(task = null) {
         primaryButton.textContent = 'Create Task';
         actionButtonsDiv.appendChild(primaryButton);
     }
+
+    // Re-focus the title input when modal opens for a new task
+    // Using setTimeout to ensure focus happens *after* the modal is fully rendered/shown
+    setTimeout(() => {
+        titleInput.focus();
+        // Immediately check validation after focusing (if it's an empty new task)
+        // This will show the message if the field is empty right after focus.
+        if (!task) { // Only for new tasks where it might be empty
+             updateTitleValidation(titleInput.value.trim() !== '');
+        }
+    }, 0);
+
+    console.log('[openTaskModal] Modal opened and input focused.');
 }
