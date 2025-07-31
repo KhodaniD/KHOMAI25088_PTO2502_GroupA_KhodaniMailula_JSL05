@@ -151,5 +151,31 @@ export function createModalElements() {
         statusSelect.appendChild(option);
     });
 
-    
+   const actionButtonsDiv = document.createElement('div');
+    actionButtonsDiv.className = 'action-buttons-div';
+
+    primaryButton = document.createElement('button');
+    primaryButton.id = 'save-button';
+    primaryButton.type = 'button';
+
+    deleteButton = document.createElement('button');
+    deleteButton.id = 'delete-button';
+    deleteButton.textContent = 'Delete Task';
+    deleteButton.type = 'button';
+
+    modalContent.appendChild(modalTitle);
+    modalContent.appendChild(titleFieldGroup);
+    modalContent.appendChild(descriptionLabel);
+    modalContent.appendChild(descriptionTextarea);
+    modalContent.appendChild(statusLabel);
+    modalContent.appendChild(statusSelect);
+    modalContent.appendChild(actionButtonsDiv);
+
+    modal.appendChild(closeButton);
+    modal.appendChild(modalContent);
+
+    document.body.appendChild(modalBackdrop);
+    modalBackdrop.appendChild(modal);
+
+    setupModalEventListeners(); 
 }
