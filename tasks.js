@@ -115,3 +115,22 @@ function createTaskElement(task) {
   taskDiv.addEventListener('click', () => openTaskModal(task));
   return taskDiv;
 }
+
+/**
+ * Updates the displayed task count for each column header.
+ * Iterates through each status column and updates the count based on `currentTasksState`.
+ * @returns {void}
+ */
+function updateTaskCountDisplays() {
+  const statuses = ['todo', 'doing', 'done'];
+  statuses.forEach(status => {
+    const count = currentTasksState.filter(task => task.status === status).length;
+    // Select the specific column header using data-status attribute
+    const headerElement = document.querySelector(`.column-div[data-status="${status}"] .columnHeader`);
+    if (headerElement) {
+      // Extract original text (e.g., "TODO") and update count
+      const currentText = headerElement.textContent.split('(')[0].trim();
+      headerElement.textContent = `${currentText} (${count})`;
+    }
+  });
+}
