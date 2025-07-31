@@ -31,3 +31,27 @@ let deleteButton = null; // Reference for the delete button (only for edit mode)
  */
 let currentTaskId = null;
 
+// New helper function to manage title validation state
+/**
+ * Updates the visibility of the custom title validation message and the browser's custom validity.
+ * Ensures that the validation message appears when the field is empty and disappears when content is present.
+ * Also applies the red border to the input when invalid.
+ * @param {boolean} isValid - True if the title field content is considered valid (e.g., not empty), false otherwise.
+ */
+function updateTitleValidation(isValid) {
+    if (!titleFieldGroup || !titleInput) return; // Defensive check
+
+    if (isValid) {
+        // If content is valid (or should be hidden)
+        titleFieldGroup.classList.remove('show-validation');
+        titleInput.setCustomValidity('');
+        console.log('[Validation State] Hiding message, clearing browser validity.');
+    } else {
+        // If content is invalid (empty)
+        titleFieldGroup.classList.add('show-validation');
+        titleInput.setCustomValidity('Please fill out this field.');
+        console.log('[Validation State] Showing message, setting browser validity.');
+    }
+}
+
+
