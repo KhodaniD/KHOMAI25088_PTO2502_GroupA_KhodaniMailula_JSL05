@@ -234,5 +234,45 @@ function setupModalEventListeners() {
             updateTitleValidation(true); // Clean up validation state after deletion
         }
     });
+
 }
 
+/**
+ * Opens a modal for adding a new task or editing an existing one.
+ * Dynamically populates and displays the modal based on the provided task data.
+ * Assumes modal elements have already been created by `createModalElements`.
+ * It also handles the initial state of the title validation message.
+ * @param {Task|null} task - The task object to display/edit, or `null` for a new task.
+ * @returns {void}
+ */
+export function openTaskModal(task = null) {
+    console.log('[openTaskModal] Called. Task:', task ? task.id : 'New Task');
+    modalBackdrop.style.display = 'flex';
+
+    // Reset form fields
+    titleInput.value = '';
+    descriptionTextarea.value = '';
+    statusSelect.value = 'todo';
+
+    // IMPORTANT: Reset ALL validation states when opening the modal
+    updateTitleValidation(true); // Initially hide validation message
+
+    const actionButtonsDiv = modal.querySelector('.action-buttons-div');
+    actionButtonsDiv.innerHTML = '';
+
+    if (task) {
+        currentTaskId = task.id;
+        modalTitle.textContent = 'Edit Task';
+        titleInput.value = task.title;
+        descriptionTextarea.value = task.description;
+        statusSelect.value = task.status;
+        primaryButton.textContent = 'Save Changes';
+        actionButtonsDiv.appendChild(primaryButton);
+        actionButtonsDiv.appendChild(deleteButton);
+    } else {
+        currentTaskId = null;
+        modalTitle.textContent = 'Add New Task';
+        primaryButton.textContent = 'Create Task';
+        actionButtonsDiv.appendChild(primaryButton);
+    }
+}
