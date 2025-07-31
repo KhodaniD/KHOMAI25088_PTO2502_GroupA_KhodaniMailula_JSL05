@@ -158,3 +158,22 @@ export function renderTasks() {
   updateTaskCountDisplays(); // Update column task counts after rendering
 }
 
+/**
+ * Adds a new task to the `currentTasksState` array, updates storage, and re-renders the tasks.
+ * Assigns a unique ID to the new task.
+ * @param {string} title - The title of the new task.
+ * @param {string} description - The description of the new task.
+ * @param {string} status - The status of the new task ('todo', 'doing', 'done').
+ * @returns {void}
+ */
+export function addNewTask(title, description, status) {
+  // Generate a unique ID for the new task
+  const newId = currentTasksState.length > 0 ? Math.max(...currentTasksState.map(t => t.id)) + 1 : 1;
+  const newTask = {
+    id: newId,
+    title,
+    description,
+    status,
+  };
+}
+
