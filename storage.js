@@ -27,3 +27,23 @@ export function saveTasksToStorage(tasks) {
   }
 }
 
+/**
+ * Loads tasks from localStorage.
+ * Retrieves the JSON string from storage and parses it back into an array of task objects.
+ * If no data is found or an error occurs during parsing, it returns null.
+ * @returns {Task[]|null} An array of task objects, or null if no tasks are found or an error occurs.
+ */
+export function loadTasksFromStorage() {
+  const data = localStorage.getItem(LOCAL_STORAGE_KEY);
+  if (!data) {
+    return null; // No data found in local storage
+  }
+  try {
+    return JSON.parse(data); // Parse the JSON string back to an array
+  } catch (error) {
+    console.error("Error parsing tasks from local storage:", error);
+    // Clear corrupted data to prevent future parsing errors
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    return null; // Return null if data is corrupted
+  }
+}
