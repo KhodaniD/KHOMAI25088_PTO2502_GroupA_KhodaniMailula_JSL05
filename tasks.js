@@ -146,3 +146,15 @@ export function renderTasks() {
     container.innerHTML = '';
   });
 
+  // Append each task to its corresponding status column
+  currentTasksState.forEach(task => {
+    const taskElement = createTaskElement(task);
+    const targetContainer = document.querySelector(`.column-div[data-status="${task.status}"] .tasks-container`);
+    if (targetContainer) {
+      targetContainer.appendChild(taskElement);
+    }
+  });
+
+  updateTaskCountDisplays(); // Update column task counts after rendering
+}
+
