@@ -204,5 +204,15 @@ export function updateTaskState(id, newTitle, newDescription, newStatus) {
   renderTasks();                          // Re-render tasks on the board
 }
 
+/**
+ * Deletes a task from the `currentTasksState` array by its ID, updates storage, and re-renders tasks.
+ * @param {number} id - The ID of the task to delete.
+ * @returns {void}
+ */
+export function deleteTask(id) {
+  currentTasksState = currentTasksState.filter(task => task.id !== id); // Filter out the deleted task
+  saveTasksToStorage(currentTasksState);                               // Persist updated state
+  renderTasks();                                                       // Re-render tasks on the board
+}
 
 
