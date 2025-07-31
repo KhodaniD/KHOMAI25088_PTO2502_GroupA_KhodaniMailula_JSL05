@@ -93,3 +93,25 @@ export function initializeTasks() {
     saveTasksToStorage(currentTasksState);
   }
 }
+
+/**
+ * Creates a DOM element for a given task.
+ * Adds a click event listener to open the task modal for editing.
+ * @param {Task} task - The task object to create an element for.
+ * @returns {HTMLDivElement} The created task DOM element.
+ */
+function createTaskElement(task) {
+  const taskDiv = document.createElement('div');
+  taskDiv.className = 'task-div';
+  taskDiv.textContent = task.title;
+  taskDiv.dataset.taskId = task.id; // Store task ID for easy retrieval
+
+  /**
+   * Event listener for clicking on a task card.
+   * Opens the task modal for editing the clicked task.
+   * @param {Event} event - The click event object.
+   * @returns {void}
+   */
+  taskDiv.addEventListener('click', () => openTaskModal(task));
+  return taskDiv;
+}
