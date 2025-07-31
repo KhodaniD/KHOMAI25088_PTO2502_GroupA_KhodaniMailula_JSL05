@@ -220,4 +220,19 @@ function setupModalEventListeners() {
         updateTitleValidation(true); // Final cleanup on modal close
     });
 
+/**
+     * Event listener for the delete task button (visible only in edit mode).
+     * Calls the deleteTask function and closes the modal.
+     * @returns {void}
+     */
+    deleteButton.addEventListener('click', () => {
+        console.log('[Delete Button Click] Fired.');
+        if (currentTaskId && confirm('Are you sure you want to delete this task?')) {
+            deleteTask(currentTaskId);
+            modalBackdrop.style.display = 'none';
+            console.log('[Delete Button Click] Task deleted:', currentTaskId);
+            updateTitleValidation(true); // Clean up validation state after deletion
+        }
+    });
+}
 
