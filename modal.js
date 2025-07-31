@@ -112,4 +112,44 @@ export function createModalElements() {
     titleFieldGroup.appendChild(titleInput);
     titleFieldGroup.appendChild(titleValidationMessageSpan);
 
+    // Event Listeners for Title Input Validation
+    titleInput.addEventListener('input', () => {
+        console.log(`[Input] Value: '${titleInput.value.trim()}'`);
+        updateTitleValidation(titleInput.value.trim() !== ''); // Hide if not empty, show if empty
+    });
+
+    titleInput.addEventListener('focus', () => {
+        console.log(`[Focus] Value: '${titleInput.value.trim()}'`);
+        updateTitleValidation(titleInput.value.trim() !== ''); // Show if empty on focus
+    });
+
+    titleInput.addEventListener('blur', () => {
+        console.log(`[Blur] Value: '${titleInput.value.trim()}'`);
+        updateTitleValidation(titleInput.value.trim() !== ''); // Show if empty on blur
+    });
+
+
+    const descriptionLabel = document.createElement('label');
+    descriptionLabel.textContent = 'Description';
+    descriptionLabel.setAttribute('for', 'modalTaskDescription');
+    descriptionTextarea = document.createElement('textarea');
+    descriptionTextarea.id = 'modalTaskDescription';
+    descriptionTextarea.placeholder = 'e.g. Pet your dog, have a cup of coffee, dance to your favourite song and come back to crush this challenge.';
+    descriptionTextarea.rows = 4;
+
+    const statusLabel = document.createElement('label');
+    statusLabel.textContent = 'Status';
+    statusLabel.setAttribute('for', 'modalTaskStatus');
+    statusSelect = document.createElement('select');
+    statusSelect.id = 'modalTaskStatus';
+
+    const statuses = ['todo', 'doing', 'done'];
+    statuses.forEach(status => {
+        const option = document.createElement('option');
+        option.value = status;
+        option.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+        statusSelect.appendChild(option);
+    });
+
+    
 }
