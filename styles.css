@@ -234,7 +234,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; 
+  z-index: 1000; /* Ensure it's on top of everything */
 }
 
 .modal {
@@ -273,7 +273,7 @@ header {
 /* NEW: Wrapper for label, input, and validation message */
 /* This is crucial for positioning the validation message relative to its input */
 .form-group {
-  position: relative; 
+  position: relative; /* All children (label, input, validation-message) will be positioned relative to this */
   margin-bottom: 15px; /* Spacing between form groups */
   margin-top: 15px; /* Spacing above the form group */
 }
@@ -566,4 +566,55 @@ header {
     left: 50%;
     transform: translateX(-50%);
   }
+
+  /*
+   * ========================
+   * MOBILE ADD TASK BUTTON
+   * ========================
+   */
+
+  .add-task-btn {
+    /* Dimensions and shape as per spec */
+    width: 33px;
+    height: 33px;
+    border-radius: 24px;
+
+    /* Use position: relative for the parent container */
+    position: relative;
+    
+    /* Use flexbox to align content and hide text more reliably */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Hide the button's text label using color */
+    color: transparent;
+    padding: 0;
+  }
+
+  /* Style the pseudo-element to create the plus sign */
+  .add-task-btn::before {
+    content: "+";
+    
+    /* Explicitly set color to make the `+` visible */
+    color: white;
+    
+    /* Typography as per spec */
+    font-family: "Plus Jakarta Sans";
+    font-size: 15px;
+    font-weight: 700;
+    
+    /* Using flexbox on the parent makes absolute positioning here optional,
+     * but this ensures it is centered no matter what.
+     */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .add-task-btn img {
+    display: none;
+  }
+
 }
